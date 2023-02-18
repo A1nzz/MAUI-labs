@@ -1,1 +1,0 @@
-D:\MAUI Projects\Calculator\Calculator\Calculator.csproj;x64
