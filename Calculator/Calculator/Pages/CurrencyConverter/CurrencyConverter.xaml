@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Calculator.Pages.CurrencyConverter.CurrencyConverter"
+             Title="CurrencyConverter"
+             Loaded="OnLoaded"
+             BackgroundColor="#222222">
+    <VerticalStackLayout HorizontalOptions="Center">
+        <DatePicker x:Name="datePicker" 
+                    Format="dd/MM/yyyy" 
+                    MaximumDate="{Binding TodayDate}"  
+                    TextColor="#fff" 
+                    HorizontalOptions="Center" 
+                    BackgroundColor="#1a2030"
+                    Margin="0, 20"
+                    DateSelected="DateSelected"/>
+
+        <HorizontalStackLayout>
+            <Entry x:Name="CurrencyEntry" BackgroundColor="#1a2030" Text="" TextChanged="OnCurrencyEntryTextChanged"/>
+            <Picker x:Name="rightPicker" 
+                    BackgroundColor="#1a2030"
+                    ItemDisplayBinding="{Binding Cur_Name}"
+                    ItemsSource="{Binding RatesList}"
+                    SelectedIndexChanged ="OnCurrentRateChanged"/>
+            <Label Text="⇔" Margin="10, 0" HorizontalOptions="Center" FontSize="30"/>
+            <Entry x:Name="BynEntry" BackgroundColor="#1a2030" Text="" TextChanged="OnBynEntryTextChanged"/>
+            <Label Text="BYN" VerticalTextAlignment="Center" BackgroundColor="#1a2030" Padding="15, 0"/>
+            
+        </HorizontalStackLayout>
+
+    </VerticalStackLayout>
+    
+</ContentPage>
