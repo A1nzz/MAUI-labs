@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PositionManager.Pages.AddPositionPage"
+             xmlns:models="clr-namespace:PositionManager.ViewModels"    
+
+             x:DataType="models:AddPositionViewModel"
+
+             Title="AddPositionPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="JustLabel"
+                   TargetType="Label">
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+                <Setter Property="FontSize"
+                        Value="Medium" />
+                <Setter Property="FontAttributes"
+                        Value="Bold" />
+                <Setter Property="HorizontalTextAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalTextAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalOptions"
+                        Value="Center" />
+                <Setter Property="HorizontalOptions"
+                        Value="End" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout>
+        <Grid RowDefinitions="*,*"
+              ColumnDefinitions="Auto,Auto"
+              HorizontalOptions="Center"
+              VerticalOptions="Center"
+              Padding="40,40,40,40"
+              Margin="100,100,100,100"
+              ColumnSpacing="30"
+              RowSpacing="20">
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Text="Название"
+                   Style="{StaticResource JustLabel}" />
+            <Entry Text="{Binding Name}"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   HeightRequest="50"
+                   Placeholder="Position Name"
+                   WidthRequest="150" />
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Text="Зарплата"
+                   Style="{StaticResource JustLabel}" />
+            <Entry Text="{Binding Salary}"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Placeholder="100"
+                   HeightRequest="50"
+                   WidthRequest="150" />
+        </Grid>
+        <Button Text="Добавить"
+                WidthRequest="200"
+                Command="{Binding AddPosCommand}"
+                />
+    </VerticalStackLayout>
+</ContentPage>

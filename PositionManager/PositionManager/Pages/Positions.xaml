@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:PositionManager.ViewModels"    
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:entities="clr-namespace:PositionManager.Domain.Entities;assembly=PositionManager.Domain"
+             xmlns:convertions="clr-namespace:PositionManager.ValueConverters"
+             x:DataType="models:PositionsViewModel"
+             x:Class="PositionManager.Pages.Positions"
+             Title="Positions">
+    <ContentPage.Resources>
+        <convertions:ImportanceToColorValueConverter x:Key="ImportanceToColor" />
+    </ContentPage.Resources>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded" Command="{Binding UpdateGroupListCommand }"/>
+    </ContentPage.Behaviors>
+
+    <Grid HorizontalOptions="Fill" VerticalOptions="Fill" BackgroundColor="#fff">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.3*" />
+            <RowDefinition />
+            <RowDefinition Height="0.2*" />
+        </Grid.RowDefinitions>
+        <Picker x:Name="SetPicker"
+                HorizontalOptions="CenterAndExpand"
+                Margin="100, 10, 100, 10"
+                Title="Select position"
+                BackgroundColor="Gray"
+                TextColor="Black"
+                ItemsSource="{Binding Positions}"
+                ItemDisplayBinding="{Binding Name}"
+                FontSize="Medium"
+                SelectedItem="{Binding SelectedPosition}"
+                Grid.Row="0">
+            <Picker.Behaviors>
+                <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged"
+                                                Command="{Binding UpdateMembersListCommand}" />
+            </Picker.Behaviors>
+        </Picker>
+        <CollectionView x:Name="ResponsibilitiesView"
+                        ItemsSource="{Binding Responsibilities}"
+                        HorizontalOptions="FillAndExpand"
+                        Margin="100, 0, 100, 0"
+                        BackgroundColor="White"
+                        Grid.Row="1">
+            
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate x:Name="PositionResponsibilityItem"
+                              x:DataType="entities:Responsibility">
+                    <Frame BackgroundColor="{Binding Importance, Converter={StaticResource ImportanceToColor}}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type models:PositionsViewModel} },
+                                Path=ShowDetailsCommand}" CommandParameter="{Binding}"/>
+                        </Frame.GestureRecognizers>
+           
+                        <Grid Padding="10"
+                              RowDefinitions="40, 50"
+                              HorizontalOptions="Fill">
+
+
+                            <Label Grid.Row="0"
+                                   Text="{Binding Name, StringFormat='Обязанность: {0}'}"
+                                   TextColor="#000"
+                                   FontSize="Medium"
+                                   HorizontalOptions="Fill"
+                                   VerticalOptions="Fill"
+                                   FontAutoScalingEnabled="True">
+                            </Label>
+
+                            <Label x:Name="Description"
+                                   x:DataType="entities:Responsibility"
+                                   Grid.Row="1"
+                                   FontSize="Small"
+                                   TextColor="#000">
+                                <Label.Text>
+                                    <MultiBinding StringFormat="Описание: {0}&#x0a;Важность: {1}.">
+                                        <Binding Path="Description" />
+                                        <Binding Path="Importance" />
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+                        </Grid>
+                        
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate> 
+            
+        </CollectionView>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Text="Add Position" Grid.Column="0" BackgroundColor="#000" TextColor="#fff" Command="{Binding AddPositionCommand}"></Button>
+            <Button Text="Add Responsibility" Grid.Column="1" BackgroundColor="#000" TextColor="#fff" Command="{Binding AddResponsibilityCommand}"></Button>
+        </Grid>
+        
+    </Grid>
+</ContentPage>

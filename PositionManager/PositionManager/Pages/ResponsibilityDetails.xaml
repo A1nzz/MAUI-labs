@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:PositionManager.ViewModels"
+             x:DataType="models:ResponsibilityDetailsViewModel"
+             x:Class="PositionManager.Pages.ResponsibilityDetails"
+             xmlns:converter="clr-namespace:PositionManager.ValueConverters"
+
+             Title="ResponsibilityDetails">
+    <ScrollView>
+        <VerticalStackLayout>
+
+            <Border HorizontalOptions="Center" Margin="0,10,0,10">
+                <Image Source="{Binding Responsibility.Id, Converter={converter:IdToImageValueConverter}}"
+                       WidthRequest="200" HeightRequest="200"/>
+            </Border>
+            <Frame HorizontalOptions="FillAndExpand"
+               VerticalOptions="FillAndExpand"
+               Margin="100, 50, 100, 50"
+               HeightRequest="200"
+               BackgroundColor="LightCyan">
+                    <Grid RowDefinitions="*, *, *">
+                        <Label Grid.Row="0"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Text="{Binding Responsibility.Name}"
+                       FontSize="Large"
+                       TextColor="Black" />
+                        <Label Grid.Row="1"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Text="{Binding Responsibility.Description}"
+                       FontSize="Large"
+                       TextColor="Black" />
+                        <Label Grid.Row="2"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Margin="0, 0, 50, 0"
+                       TextColor="Black"
+                       Text="{Binding Responsibility.Importance}"
+                       FontSize="Medium" />
+                    </Grid>
+
+
+
+             </Frame>
+            <Button Text="Edit" HorizontalOptions="Center" WidthRequest="200" Margin="0,10,0,10"
+                        Command="{Binding EditCommand}"/>
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

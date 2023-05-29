@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Shell
+    x:Class="PositionManager.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:PositionManager"
+    xmlns:pages="clr-namespace:PositionManager.Pages"
+    >
+
+        <FlyoutItem Title="Positions">
+        <ShellContent ContentTemplate="{DataTemplate pages:Positions}"
+                      Route="Positions" />
+    </FlyoutItem>
+
+</Shell>
